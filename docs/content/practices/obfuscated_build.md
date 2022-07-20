@@ -49,8 +49,8 @@ buildTypes {
     debug {
         ...
         if (hasProperty("testingMinimizedBuild")) {
-            isMinifyEnabled = hasProperty("testingMinimizedBuild")
-            isShrinkResources = hasProperty("testingMinimizedBuild")
+            minifyEnabled true
+            shrinkResources true
             proguardFiles 'proguard-rules.pro'
         }
     }
@@ -59,7 +59,7 @@ buildTypes {
 
 ### Main trick
 
-Once we have build and minimize for tests we need to keep all needed classes. To do so we apply [keeper](https://slackhq.github.io/keeper/) plugin:
+Once we have build and minimize for tests we need to keep all needed classes. To do so we apply [keeper](https://slackhq.github.io/keeper/) plugin(follow detailed [configuration page](https://slackhq.github.io/keeper/configuration/)):
 
 ```
 if (hasProperty("testingMinimizedBuild")) {
@@ -159,11 +159,11 @@ Also on different versions of AGP work different R8. If something doesn't work(y
 
 ```
 keeper {
-  traceReferences()
+  traceReferences {}
 }
 ```
 
-Otherwise you may want to try different version of R8. Look for tags [here](https://r8.googlesource.com/r8/). More [here](https://slackhq.github.io/keeper/configuration/#custom-r8-behavior).
+Otherwise you may want to try different version of R8. To find a version of R8 for tags in [google sources](https://r8.googlesource.com/r8/). More information from official keeper's configuration docs [here](https://slackhq.github.io/keeper/configuration/#custom-r8-behavior).
 
 
 ### Further reading:
